@@ -37,7 +37,7 @@ public class ASTGenerator {
 		
 		ASTUnit astUnit = new ASTUnit(cu);
 		astUnit.initializeClass();
-		
+
 		this.units.put(file.getName(), astUnit);
 	}
 	
