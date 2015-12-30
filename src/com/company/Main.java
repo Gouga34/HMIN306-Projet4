@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.ast.ContentClass;
+import com.company.objects.ASTGenerator;
 import com.company.test.A;
 import org.eclipse.jdt.core.dom.*;
 
@@ -26,6 +27,10 @@ public class Main {
         parser.setKind(ASTParser.K_COMPILATION_UNIT);
 
         final CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+
+        /*ASTGenerator generator = new ASTGenerator();
+        generator.initialize();
+        generator.parseFile(filePath);*/
 
         try {
             cu.accept(new ASTVisitor() {
@@ -69,22 +74,16 @@ public class Main {
                                 System.out.println("Expr: " + expression.toString());
                             }
 
-
                             return true;
                         }
                     });
 
-                    
-
                     System.out.println("\n");
                     return true;
                 }
-
-
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
