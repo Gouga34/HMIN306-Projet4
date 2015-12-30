@@ -1,5 +1,6 @@
 package com.company.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.company.utils.Pair;
@@ -10,11 +11,11 @@ public class ASTMethod {
 	
 	private ASTClass containerClass;
 	
-	private List<ASTVariable> parameters;
+	private List<ASTVariable> parameters = new ArrayList<ASTVariable>();
 	
-	private List<ASTVariable> localVariables;
+	private List<ASTVariable> localVariables = new ArrayList<ASTVariable>();
 	
-	private List<Pair<ASTVariable, ASTMethod>> calledMethods;
+	private List<Pair<ASTVariable, ASTMethod>> calledMethods = new ArrayList<Pair<ASTVariable, ASTMethod>>();
 	
 	
 	public ASTMethod(String name, ASTClass c) {
