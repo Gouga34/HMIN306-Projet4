@@ -1,14 +1,15 @@
 package com.company.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ASTClass {
 	
 	private String name;
 	
-	private List<ASTVariable> attributes;
+	private List<ASTVariable> attributes = new ArrayList<ASTVariable>();
 	
-	private List<ASTMethod> methods;
+	private List<ASTMethod> methods = new ArrayList<ASTMethod>();
 	
 	
 	public ASTClass(String name) {
