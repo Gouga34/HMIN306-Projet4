@@ -17,4 +17,8 @@ public class A {
         b.m1(this);
     }
 
+    public A m3() {
+        return new A(new B());
+    }
+
 }
