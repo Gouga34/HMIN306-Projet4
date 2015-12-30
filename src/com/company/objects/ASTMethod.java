@@ -1,5 +1,6 @@
 package com.company.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.company.utils.Pair;
@@ -10,11 +11,13 @@ public class ASTMethod {
 	
 	private ASTClass containerClass;
 	
-	private List<ASTVariable> parameters;
+	private List<ASTVariable> parameters = new ArrayList<ASTVariable>();
 	
-	private List<ASTVariable> localVariables;
+	private List<ASTVariable> localVariables = new ArrayList<ASTVariable>();
 	
-	private List<Pair<ASTVariable, ASTMethod>> calledMethods;
+	private List<Pair<ASTVariable, ASTMethod>> calledMethods = new ArrayList<Pair<ASTVariable, ASTMethod>>();
+
+	private ASTClass returnType;
 	
 	
 	public ASTMethod(String name, ASTClass c) {
@@ -67,7 +70,7 @@ public class ASTMethod {
 	}
 	
 	public void addLocalVariable(ASTVariable var) {
-		this.parameters.add(var);
+		this.localVariables.add(var);
 	}
 	
 	public void removeLocalVariable(String varName) {
@@ -82,5 +85,35 @@ public class ASTMethod {
 		if (v != null) {
 			this.calledMethods.add(new Pair<ASTVariable, ASTMethod>(v, m));
 		}
+	}
+
+	public void setReturnType(ASTClass returnType) {
+		this.returnType = returnType;
+	}
+
+	public ASTClass getReturnType() {
+		return returnType;
+	}
+
+	@Override
+	public String toString() {
+		String result = "ASTMethod{" +
+				"name='" + name + '\'' +
+				", containerClass=" + containerClass.getName() +
+				", \nRETURN : " + returnType.getName();
+
+		for(ASTVariable var : parameters) {
+			result += "\nPARAM : " + var.toString();
+		}
+
+		if(parameters.size() == 0)
+			result += "\nPARAM : " + "void";
+
+		for(ASTVariable local : localVariables) {
+			result += "\nLOCAL : " + local.toString();
+		}
+
+
+		return result;
 	}
 }

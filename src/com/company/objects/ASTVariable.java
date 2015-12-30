@@ -19,4 +19,12 @@ public class ASTVariable {
 	public ASTClass getType() {
 		return this.type;
 	}
+
+	@Override
+	public String toString() {
+		return "ASTVariable{" +
+				"name='" + name + '\'' +
+				", type=" + type.getName() +
+				'}';
+	}
 }
