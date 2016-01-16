@@ -1,14 +1,15 @@
 package com.company.ast.graph;
 
 
+import com.company.ast.graph.klass.DiGraphASTClass;
 import com.company.ast.graph.method.DiGraphASTMethod;
 import com.company.ast.objects.ASTClass;
 import com.company.ast.objects.ASTMethod;
 import com.company.graph.DiGraph;
 
-public class CallGraph {
+import java.util.List;
 
-    private DiGraph<ASTClass> graph;
+public class CallGraph {
 
     public CallGraph() {
 
@@ -16,7 +17,13 @@ public class CallGraph {
 
     }
 
-    public DiGraph<ASTClass> getGraph() {
+    public DiGraphASTClass getGraphClass(List<ASTClass> clss) {
+        DiGraphASTClass graph = new DiGraphASTClass(clss);
+
+        for(ASTClass cl : clss) {
+            graph.addNode(cl);
+        }
+
         return graph;
     }
 
@@ -30,6 +37,5 @@ public class CallGraph {
 
         return graph;
     }
-
 
 }

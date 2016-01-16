@@ -87,10 +87,15 @@ public class ASTMethod {
 
 		int nb = 0;
 
-		for(Pair<ASTVariable, ASTMethod> called : getCalledMethods())
-			if(cls.equals(called.getValue1().getType()))
+		for(Pair<ASTVariable, ASTMethod> called : getCalledMethods()) {
+
+			//System.out.println("called : " + called.getValue2().getName());
+			//System.out.println(cls.getName());
+			//System.out.println(called.getValue1().getType().getName());
+
+			if (cls.equals(called.getValue1().getType()))
 				nb++;
-		
+		}
 		return nb;
 	}
 	
