@@ -1,7 +1,33 @@
 package com.company.ast.graph;
 
-/**
- * Created by jimmy on 16/01/16.
- */
+
+import com.company.ast.objects.ASTClass;
+import com.company.ast.objects.ASTMethod;
+import com.company.graph.DiGraph;
+
 public class CallGraph {
+
+    private DiGraph<ASTClass> graph = new DiGraph<ASTClass>();
+
+    public CallGraph() {
+
+
+
+    }
+
+    public DiGraph<ASTClass> getGraph() {
+        return graph;
+    }
+
+    public DiGraph<ASTMethod> getGraphMethod(ASTClass cls) {
+
+        DiGraph<ASTMethod> graph = new DiGraph<ASTMethod>();
+
+
+            
+
+        return graph;
+    }
+
+
 }
