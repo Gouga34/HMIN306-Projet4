@@ -27,26 +27,5 @@ public class Main {
         for(ASTMethod method : root.getMethods()) {
             System.out.println(method.toString());
         }
-
-
-                /*
-            List<MethodInvocation> listmi = miv.getMethods();
-            for (MethodInvocation methodBody : listmi) {
-
-                System.out.println("METHOD INVOCATION body: " + methodBody.toString());
-                System.out.println("Appelant: " + methodBody.getExpression());
-                System.out.println("Method body name : " + methodBody.getName());
-
-                List arguments = methodBody.arguments();
-                System.out.println("Arguments : ");
-                for (Object arg : arguments) {
-                    System.out.println("Argument: " + arg.toString());
-                  //  MethodInvocation variableDeclaration = (MethodInvocation) arg;
-                    //String type = variableDeclaration.getStructuralProperty(SingleVariableDeclaration.TYPE_PROPERTY).toString();
-                    //System.out.println("Argument type : " + " - type : " + type);
-                }
-
-            }
-*/
     }
 }
