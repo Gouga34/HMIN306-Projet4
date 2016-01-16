@@ -3,6 +3,7 @@ package com.company.ast;
 import com.company.ast.objects.ASTClass;
 import com.company.ast.objects.ASTMethod;
 import com.company.ast.objects.ASTVariable;
+
 import org.eclipse.jdt.core.dom.*;
 
 import java.util.List;
@@ -105,7 +106,11 @@ public class ASTUnit {
 				m.addParameter(param);
 			}
 
-			md.addCalledMethod(varName, m);
+			try {
+				md.addCalledMethod(varName, m);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
