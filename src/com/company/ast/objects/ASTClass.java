@@ -53,6 +53,8 @@ public class ASTClass {
 	}
 	
 	public void addMethod(ASTMethod m) {
-		this.methods.add(m);
+		if (getMethod(m.getName()) == null) {
+			this.methods.add(m);
+		}
 	}
 }

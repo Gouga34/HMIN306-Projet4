@@ -87,30 +87,59 @@ public class ASTMethod {
 	 * @return ASTVariable associée, null si pas trouvée
 	 */
 	private ASTVariable findVariable(String varName) {
-		ASTVariable v = this.getLocalVariable(varName);
-		if (v == null) {
-			v = this.getParameter(varName);
+		ASTVariable v = null;
+
+		if (varName.equals("this")) {
+			v = new ASTVariable(varName, getContainerClass());
+		} else {
+			v = this.getLocalVariable(varName);
 			if (v == null) {
-				v = this.getContainerClass().getAttribute(varName);
+				v = this.getParameter(varName);
+				if (v == null) {
+					v = this.getContainerClass().getAttribute(varName);
+				}
 			}
 		}
 
 		return v;
 	}
 
-	public void addCalledMethod(String varName, ASTMethod m) throws Exception {
-		ASTVariable v = null;
+	private ASTMethod createMethodWithParameters(ASTMethod m) throws Exception {
+		ASTMethod newMethod = new ASTMethod(m.getName(), m.getContainerClass());
 
-		if (m.getContainerClass().getName().isEmpty()) {
-			v = findVariable(varName);
-			if (v == null) {
-				throw new Exception("Unknown variable " + varName);
+		List<ASTVariable> args = m.getParameters();
+		for (ASTVariable arg : args) {
+			ASTVariable param = findVariable(arg.getName());
+			if (param == null) {
+				throw new Exception("Unknown variable " + arg.getName());
 			}
-		} else {
-			v = new ASTVariable("this", m.getContainerClass());
+
+			newMethod.addParameter(param);
 		}
 
-		this.calledMethods.add(new Pair<ASTVariable, ASTMethod>(v, m));
+		return newMethod;
+	}
+
+	private void createMethodInClass(ASTMethod calledMethod) throws Exception {
+		ASTClass methodClass = calledMethod.getContainerClass();
+		methodClass.addMethod(calledMethod);
+	}
+
+	public void addCalledMethod(String varName, ASTMethod m) throws Exception {
+		ASTVariable v = findVariable(varName);
+		if (v == null) {
+			throw new Exception("Unknown variable " + varName);
+		}
+
+		ASTMethod calledMethod = createMethodWithParameters(m);
+		ASTMethod existingMethod = v.getType().getMethod(calledMethod.getName());
+		if (existingMethod != null) {
+			calledMethod = existingMethod;
+		} else {
+			createMethodInClass(calledMethod);
+		}
+
+		this.calledMethods.add(new Pair<ASTVariable, ASTMethod>(v, calledMethod));
 	}
 
 	public void setReturnType(ASTClass returnType) {
