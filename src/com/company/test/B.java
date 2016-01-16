@@ -19,13 +19,13 @@ public class B {
         b.m1(a);
         //a.m2();
         A ab = new A(new B());
-        this.m3(ab, ab);
-        m3(ab, ab);
+        this.m3(ab, new B());
+       // m3(ab, ab);
 
         return null;
     }
 
-    public void m3(A a, A a2) {
+    public void m3(A a, B a2) {
 
     }
 

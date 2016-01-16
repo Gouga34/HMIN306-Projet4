@@ -133,6 +133,9 @@ public class ASTUnit {
 				param = new ASTVariable(arg.toString(), new ASTClass("Number"));
 			} else if (BooleanLiteral.class.isInstance(arg)) {
 				param = new ASTVariable(arg.toString(), new ASTClass("boolean"));
+			} else if (ClassInstanceCreation.class.isInstance(arg)) {
+				ClassInstanceCreation cic = (ClassInstanceCreation) arg;
+				param = new ASTVariable(arg.toString(), new ASTClass(cic.getType().toString()));
 			} else {
 				param = new ASTVariable(arg.toString(), new ASTClass(""));
 			}

@@ -18,8 +18,7 @@ public class ASTMethod {
 	private List<Pair<ASTVariable, ASTMethod>> calledMethods = new ArrayList<Pair<ASTVariable, ASTMethod>>();
 
 	private ASTClass returnType;
-	
-	
+
 	public ASTMethod(String name, ASTClass c) {
 		this.name = name;
 		this.containerClass = c;
@@ -82,6 +81,17 @@ public class ASTMethod {
 		if (v != null) {
 			this.localVariables.remove(v);
 		}
+	}
+
+	public int getWeightOfMethod(ASTClass cls) {
+
+		int nb = 0;
+
+		for(Pair<ASTVariable, ASTMethod> called : getCalledMethods())
+			if(cls.equals(called.getValue1().getType()))
+				nb++;
+		
+		return nb;
 	}
 	
 	/**
