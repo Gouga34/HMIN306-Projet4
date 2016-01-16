@@ -19,8 +19,14 @@ public class B {
         a.m1();
         a.m2();
         A ab = new A(new B());
-        this.m1(ab.m3());
+        this.m3(ab.m3(), ab, 0);
+        //this.m1(ab.m3());
+
         return null;
+    }
+
+    public void m3(A a, A a2, int i) {
+
     }
 
 }

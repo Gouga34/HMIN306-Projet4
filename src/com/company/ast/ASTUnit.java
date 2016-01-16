@@ -92,21 +92,18 @@ public class ASTUnit {
 			ASTMethod m;
 
 			if("this".equals(varName))
-				m = new ASTMethod(varName, new ASTClass(md.getContainerClass().getName()));
+				m = new ASTMethod(methodName, new ASTClass(md.getContainerClass().getName()));
 			else
-				m = new ASTMethod(varName, new ASTClass(""));
+				m = new ASTMethod(methodName, new ASTClass(""));
 
-			//System.out.println("TMP : " + m.toString());
-
-			/*
 			List arguments = methodBody.arguments();
-			System.out.println("Arguments : ");
 			for (Object arg : arguments) {
 				System.out.println("Argument: " + arg.toString());
-				//  MethodInvocation variableDeclaration = (MethodInvocation) arg;
-				//String type = variableDeclaration.getStructuralProperty(SingleVariableDeclaration.TYPE_PROPERTY).toString();
-				//System.out.println("Argument type : " + " - type : " + type);
-			}*/
+
+				ASTVariable param = new ASTVariable(arg.toString(), new ASTClass(""));
+
+				m.addParameter(param);
+			}
 
 			md.addCalledMethod(varName, m);
 		}
