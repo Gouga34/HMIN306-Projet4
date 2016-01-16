@@ -80,8 +80,26 @@ public class ASTMethod {
 		}
 	}
 	
-	public void addCalledMethod(String varName, ASTMethod m) {
+	/**
+	 * Recherche la variable varName dans les variables locales, puis les paramètres,
+	 * puis les attributs de la classe.
+	 * @param varName
+	 * @return ASTVariable associée, null si pas trouvée
+	 */
+	private ASTVariable findVariable(String varName) {
 		ASTVariable v = this.getLocalVariable(varName);
+		if (v == null) {
+			v = this.getParameter(varName);
+			if (v == null) {
+				v = this.getContainerClass().getAttribute(varName);
+			}
+		}
+
+		return v;
+	}
+
+	public void addCalledMethod(String varName, ASTMethod m) {
+		ASTVariable v = findVariable(varName);
 		if (v != null) {
 			this.calledMethods.add(new Pair<ASTVariable, ASTMethod>(v, m));
 		}
