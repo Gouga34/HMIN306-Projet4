@@ -1,13 +1,14 @@
 package com.company.ast.graph;
 
 
+import com.company.ast.graph.method.DiGraphASTMethod;
 import com.company.ast.objects.ASTClass;
 import com.company.ast.objects.ASTMethod;
 import com.company.graph.DiGraph;
 
 public class CallGraph {
 
-    private DiGraph<ASTClass> graph = new DiGraph<ASTClass>();
+    private DiGraph<ASTClass> graph;
 
     public CallGraph() {
 
@@ -19,12 +20,15 @@ public class CallGraph {
         return graph;
     }
 
-    public DiGraph<ASTMethod> getGraphMethod(ASTClass cls) {
+    public DiGraphASTMethod getGraphMethod(ASTClass cls) {
 
-        DiGraph<ASTMethod> graph = new DiGraph<ASTMethod>();
+        DiGraphASTMethod graph = new DiGraphASTMethod(cls);
 
+        for(ASTMethod method : cls.getMethods()) {
+            System.out.println("m : " + method.getName());
 
-            
+            graph.addNode(method);
+        }
 
         return graph;
     }

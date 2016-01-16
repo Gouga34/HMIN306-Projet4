@@ -16,16 +16,16 @@ public class B {
     }
 
     public A m2 () {
-        //a.m1();
+        a.m1();
         //a.m2();
         A ab = new A(new B());
-        this.m3(ab.m3(), ab, 0);
-        m3(ab, ab, 34);
+        this.m3(ab, ab);
+        m3(ab, ab);
 
         return null;
     }
 
-    public void m3(A a, A a2, int i) {
+    public void m3(A a, A a2) {
 
     }
 

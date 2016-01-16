@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Permet de représenter un graphe orinenté composé de noeud
  */
-public class DiGraph<T> {
+public abstract class DiGraph<T> {
 
     /**
      * La liste des noeuds du graphe
@@ -22,13 +22,10 @@ public class DiGraph<T> {
      * à partir d'une classe
      * @param c Class : la classe que l'on veut rajouter au graphe
      */
-    public void addNode(T c) {
-        Node<T> node = new Node<T>(c); // part défault on créer un nouveau noeud
+    public abstract void addNode(T c);
 
-        if(!haveThisNode(node)) // on vérifie si notre noeud nes pas déjà dans notre graphe
-            nodes.add(node); // on ajoute notre noeud au graphe
-        else
-            node = getNode(c); // sinon on récupère le noeud dans notre graphe
+    public List<Node<T>> getNodes() {
+        return nodes;
     }
 
     /**
