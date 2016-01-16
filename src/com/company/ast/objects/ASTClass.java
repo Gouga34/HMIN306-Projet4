@@ -34,9 +34,9 @@ public class ASTClass {
 		return this.attributes;
 	}
 	
-	public ASTMethod getMethod(String name) {
+	public ASTMethod getMethod(ASTMethod method) {
 		for (ASTMethod m : this.methods) {
-			if (m.getName().equals(name)) {
+			if (m.getName().equals(method.getName()) && m.compareParams(method)) {
 				return m;
 			}
 		}
@@ -53,6 +53,8 @@ public class ASTClass {
 	}
 	
 	public void addMethod(ASTMethod m) {
-		this.methods.add(m);
+		if (getMethod(m) == null) {
+			this.methods.add(m);
+		}
 	}
 }
