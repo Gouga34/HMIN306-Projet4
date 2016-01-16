@@ -75,9 +75,6 @@ public class MethodInvocationVisitor extends ASTVisitor {
         return variableDeclarations;
     }
 
-
-
-
     /**
      * @return the instances
      */
