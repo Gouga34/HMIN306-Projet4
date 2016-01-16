@@ -132,7 +132,7 @@ public class ASTMethod {
 		}
 
 		ASTMethod calledMethod = createMethodWithParameters(m);
-		ASTMethod existingMethod = v.getType().getMethod(calledMethod.getName());
+		ASTMethod existingMethod = v.getType().getMethod(calledMethod);
 		if (existingMethod != null) {
 			calledMethod = existingMethod;
 		} else {
@@ -148,6 +148,28 @@ public class ASTMethod {
 
 	public ASTClass getReturnType() {
 		return returnType;
+	}
+
+	/**
+	 * Compare la liste des paramètres des deux méthodes
+	 * @param m
+	 * @return true si les listes de type sont équivalentes
+	 */
+	public boolean compareParams(ASTMethod m) {
+		for (int i = 0; i < this.parameters.size(); i++) {
+			if (i >= m.getParameters().size()) {
+				return false;
+			}
+
+			String param1 = this.parameters.get(i).getType().getName();
+			String param2 = m.getParameters().get(i).getType().getName();
+
+			if (!param1.equals(param2)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	@Override
