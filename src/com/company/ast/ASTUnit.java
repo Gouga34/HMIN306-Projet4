@@ -19,7 +19,10 @@ public class ASTUnit {
 		compilationUnit = cu;
 		typeDeclaration = ((TypeDeclaration) compilationUnit.types().get(0));
 	}
-	
+
+	/**
+	 * Permet de gérer les différents attributs de notre classe
+	 */
 	private void registerAttributes() {
 		FieldDeclaration fields[] = typeDeclaration.getFields();
 		for (FieldDeclaration field : fields) {
@@ -30,7 +33,10 @@ public class ASTUnit {
 			unitClass.addAttribute(att);
 		}
 	}
-	
+
+	/**
+	 * Permet de gérer les différentes méthodes de notre classe
+	 */
 	private void registerMethods() {
 		MethodDeclaration methods[] = typeDeclaration.getMethods();
 
@@ -44,12 +50,7 @@ public class ASTUnit {
 
 				md.setReturnType(new ASTClass(typeReturn.toString()));
 
-				for (Object param : method.parameters()) {
-					VariableDeclaration variableDeclaration = (VariableDeclaration) param;
-					String type = variableDeclaration.getStructuralProperty(SingleVariableDeclaration.TYPE_PROPERTY).toString();
-					ASTVariable var = new ASTVariable(variableDeclaration.getName().toString(), new ASTClass(type));
-					md.addParameter(var);
-				}
+				addParamOfMethod(method, md);
 
 				Block block = method.getBody();
 				MethodInvocationVisitor miv = new MethodInvocationVisitor();
@@ -61,18 +62,27 @@ public class ASTUnit {
 
 				unitClass.addMethod(md);
 			}
-
 		}
+	}
 
-
+	/**
+	 *
+	 * @param method
+	 * @param md
+	 */
+	private void addParamOfMethod(MethodDeclaration method, ASTMethod md) {
+		for (Object param : method.parameters()) {
+			VariableDeclaration variableDeclaration = (VariableDeclaration) param;
+			String type = variableDeclaration.getStructuralProperty(SingleVariableDeclaration.TYPE_PROPERTY).toString();
+			ASTVariable var = new ASTVariable(variableDeclaration.getName().toString(), new ASTClass(type));
+			md.addParameter(var);
+		}
 	}
 	
 	private void registerLocalVariables(ASTMethod md, MethodInvocationVisitor miv) {
 
 		List<VariableDeclarationStatement> variableDeclarations = miv.getVariableDeclarations();
 		for (VariableDeclarationStatement var : variableDeclarations) {
-			//System.out.println("Variable body: " + var.toString());
-			//System.out.println("Variable type : " + var.getType());
 			String name = ((VariableDeclarationFragment) var.fragments().get(0)).getName().toString();
 			String type = var.getType().toString();
 			ASTVariable local = new ASTVariable(name, new ASTClass(type));
@@ -91,21 +101,24 @@ public class ASTUnit {
 
 			ASTMethod m;
 
-			if("this".equals(varName))
+			if("".equals(varName))
+				varName = "this";
+
+			if("this".equals(varName)) // s'il c'est un appelle de méthode de la classe on peut alors identifier leur ASTClass
 				m = new ASTMethod(methodName, new ASTClass(md.getContainerClass().getName()));
 			else
 				m = new ASTMethod(methodName, new ASTClass(""));
 
-			List arguments = methodBody.arguments();
-			for (Object arg : arguments) {
-				System.out.println("Argument: " + arg.toString());
-
-				ASTVariable param = new ASTVariable(arg.toString(), new ASTClass(""));
-
-				m.addParameter(param);
-			}
+			addParamOfCalledMethod(methodBody.arguments(), m);
 
 			md.addCalledMethod(varName, m);
+		}
+	}
+
+	private void addParamOfCalledMethod (List arguments, ASTMethod m) {
+		for (Object arg : arguments) {
+			ASTVariable param = new ASTVariable(arg.toString(), new ASTClass(""));
+			m.addParameter(param);
 		}
 	}
 	
