@@ -1,4 +1,4 @@
-package com.company.objects;
+package com.company.ast.objects;
 
 import java.util.ArrayList;
 import java.util.List;

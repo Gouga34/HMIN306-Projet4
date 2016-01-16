@@ -1,14 +1,14 @@
-package com.company.objects;
+package com.company.ast;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.company.ast.objects.ASTClass;
+import com.company.utils.ContentClass;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
-
-import com.company.ast.ContentClass;
 
 public class ASTGenerator {
 	

@@ -1,4 +1,4 @@
-package com.company.objects;
+package com.company.ast.objects;
 
 public class ASTVariable {
 
