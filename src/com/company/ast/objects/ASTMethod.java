@@ -65,6 +65,10 @@ public class ASTMethod {
 		return this.calledMethods;
 	}
 	
+	public void clearParameters() {
+		this.parameters.clear();
+	}
+
 	public void addParameter(ASTVariable param) {
 		this.parameters.add(param);
 	}
