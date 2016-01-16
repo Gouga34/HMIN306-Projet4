@@ -21,12 +21,13 @@ public class B {
         A ab = new A(new B());
         this.m3(ab, new B());
        // m3(ab, ab);
-
+        ab.m2();
         return null;
     }
 
     public void m3(A a, B a2) {
-
+        a.m3();
+        a.m1();
     }
 
 }

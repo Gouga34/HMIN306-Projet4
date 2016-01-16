@@ -87,10 +87,15 @@ public class ASTMethod {
 
 		int nb = 0;
 
-		for(Pair<ASTVariable, ASTMethod> called : getCalledMethods())
-			if(cls.equals(called.getValue1().getType()))
+		for(Pair<ASTVariable, ASTMethod> called : getCalledMethods()) {
+
+			//System.out.println("called : " + called.getValue2().getName());
+			//System.out.println(cls.getName());
+			//System.out.println(called.getValue1().getType().getName());
+
+			if (cls.equals(called.getValue1().getType()))
 				nb++;
-		
+		}
 		return nb;
 	}
 	
@@ -127,7 +132,8 @@ public class ASTMethod {
 			if (arg.getType() == null || arg.getType().getName().isEmpty()) {
 				ASTVariable param = findVariable(arg.getName());
 				if (param == null) {
-					throw new Exception("Unknown variable " + arg.getName());
+//					throw new Exception("Unknown variable " + arg.getName());
+					break ;
 				}
 
 				newMethod.addParameter(param);
@@ -147,7 +153,8 @@ public class ASTMethod {
 	public void addCalledMethod(String varName, ASTMethod m) throws Exception {
 		ASTVariable v = findVariable(varName);
 		if (v == null) {
-			throw new Exception("Unknown variable " + varName);
+//			throw new Exception("Unknown variable " + varName);
+			return;
 		}
 
 		ASTMethod calledMethod = createMethodWithParameters(m);

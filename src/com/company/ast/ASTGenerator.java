@@ -1,7 +1,9 @@
 package com.company.ast;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.company.ast.objects.ASTClass;
@@ -36,12 +38,30 @@ public class ASTGenerator {
 		File file = new File(filePath);
 		
 		ASTUnit astUnit = new ASTUnit(cu);
-		astUnit.initializeClass();
+		if (astUnit.isValidFile()) {
+			astUnit.initializeClass();
 
-		this.units.put(file.getName(), astUnit);
+			this.units.put(file.getName(), astUnit);
+		}
 	}
 	
 	public ASTClass getClass(String filename) {
-		return units.get(filename).getUnitClass();
+		if(units.get(filename) != null)
+			return units.get(filename).getUnitClass();
+		else
+			return null;
+	}
+
+	public List<ASTClass> getAllClass() {
+
+		List<ASTClass> classes = new ArrayList<ASTClass>();
+
+		for(Map.Entry<String, ASTUnit> entry : units.entrySet()) {
+			String key = entry.getKey();
+			ASTClass cls = entry.getValue().getUnitClass();
+			classes.add(cls);
+		}
+
+		return classes;
 	}
 }
