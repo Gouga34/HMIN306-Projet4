@@ -1,13 +1,9 @@
 package com.company;
 
-import com.company.ast.ContentClass;
-import com.company.objects.ASTClass;
-import com.company.objects.ASTMethod;
-import com.company.objects.ASTVariable;
-import com.company.objects.ASTGenerator;
-import com.company.test.A;
-import org.eclipse.jdt.core.dom.*;
-import java.util.List;
+import com.company.ast.objects.ASTClass;
+import com.company.ast.objects.ASTMethod;
+import com.company.ast.objects.ASTVariable;
+import com.company.ast.ASTGenerator;
 
 public class Main {
 

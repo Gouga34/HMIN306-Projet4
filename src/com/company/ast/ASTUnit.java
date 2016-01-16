@@ -1,7 +1,9 @@
-package com.company.objects;
+package com.company.ast;
 
 import com.company.MethodInvocationVisitor;
-import com.company.test.A;
+import com.company.ast.objects.ASTClass;
+import com.company.ast.objects.ASTMethod;
+import com.company.ast.objects.ASTVariable;
 import org.eclipse.jdt.core.dom.*;
 
 import java.util.List;
@@ -70,8 +72,8 @@ public class ASTUnit {
 
 		List<VariableDeclarationStatement> variableDeclarations = miv.getVariableDeclarations();
 		for (VariableDeclarationStatement var : variableDeclarations) {
-			System.out.println("Variable body: " + var.toString());
-			System.out.println("Variable type : " + var.getType());
+			//System.out.println("Variable body: " + var.toString());
+			//System.out.println("Variable type : " + var.getType());
 			String name = ((VariableDeclarationFragment) var.fragments().get(0)).getName().toString();
 			String type = var.getType().toString();
 			ASTVariable local = new ASTVariable(name, new ASTClass(type));
@@ -95,7 +97,7 @@ public class ASTUnit {
 			else
 				m = new ASTMethod(varName, new ASTClass(""));
 
-			System.out.println("TMP : " + m.toString());
+			//System.out.println("TMP : " + m.toString());
 
 			/*
 			List arguments = methodBody.arguments();
