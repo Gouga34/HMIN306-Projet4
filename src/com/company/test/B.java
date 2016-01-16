@@ -16,7 +16,7 @@ public class B {
     }
 
     public A m2 () {
-        a.m1();
+        b.m1(a);
         //a.m2();
         A ab = new A(new B());
         this.m3(ab, ab);

@@ -29,7 +29,5 @@ public class Main {
         CallGraph callGraph = new CallGraph();
 
         DiGraphASTMethod methods = callGraph.getGraphMethod(root);
-
-        System.out.println(methods.toString());
     }
 }

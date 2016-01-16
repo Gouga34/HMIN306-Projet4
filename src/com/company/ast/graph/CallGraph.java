@@ -25,8 +25,6 @@ public class CallGraph {
         DiGraphASTMethod graph = new DiGraphASTMethod(cls);
 
         for(ASTMethod method : cls.getMethods()) {
-            System.out.println("m : " + method.getName());
-
             graph.addNode(method);
         }
 

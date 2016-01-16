@@ -5,10 +5,7 @@ import com.company.ast.objects.ASTMethod;
 import com.company.ast.objects.ASTVariable;
 import com.company.graph.DiGraph;
 import com.company.graph.EdgeType;
-import com.company.graph.Node;
 import com.company.utils.Pair;
-
-import java.util.List;
 
 public class DiGraphASTMethod extends DiGraph<ASTMethod> {
 
@@ -31,9 +28,7 @@ public class DiGraphASTMethod extends DiGraph<ASTMethod> {
 
             ASTMethod method = pair.getValue2();
 
-            System.out.println("mm : " + method.getName());
-
-            if(cls.equals(method.getContainerClass())) {
+            if(cls.equals(method.getContainerClass()) || cls.equals(pair.getValue1().getType())) {
 
                 NodeMethod callM = new NodeMethod(method);
 
@@ -48,8 +43,6 @@ public class DiGraphASTMethod extends DiGraph<ASTMethod> {
                     node.addEdge(callM, EdgeType.OUT);
                 }
             }
-
         }
     }
-
 }
