@@ -97,13 +97,16 @@ public class ASTUnit {
 		List<MethodInvocation> listmi = miv.getMethods();
 		for (MethodInvocation methodBody : listmi) {
 
-			String varName = methodBody.getExpression().toString();
+			Expression exp = methodBody.getExpression();
+
+			String varName = "this";
+
+			if(exp != null)
+				varName = exp.toString();
+
 			String methodName = methodBody.getName().toString();
 
 			ASTMethod m;
-
-			if("".equals(varName))
-				varName = "this";
 
 			if("this".equals(varName)) // s'il c'est un appelle de méthode de la classe on peut alors identifier leur ASTClass
 				m = new ASTMethod(methodName, new ASTClass(md.getContainerClass().getName()));

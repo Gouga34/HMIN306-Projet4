@@ -20,7 +20,7 @@ public class B {
         //a.m2();
         A ab = new A(new B());
         this.m3(ab.m3(), ab, 0);
-        //this.m1(ab.m3());
+        m3(ab, ab, 34);
 
         return null;
     }
