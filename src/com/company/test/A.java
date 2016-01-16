@@ -11,6 +11,7 @@ public class A {
     public void m1 () {
         b.m1(this);
         m2();
+        m3();
     }
 
     public void m2 () {

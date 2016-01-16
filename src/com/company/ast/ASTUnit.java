@@ -18,7 +18,11 @@ public class ASTUnit {
 	
 	public ASTUnit(CompilationUnit cu) {
 		compilationUnit = cu;
-		typeDeclaration = ((TypeDeclaration) compilationUnit.types().get(0));
+		System.out.println(compilationUnit.types().size());
+		if(compilationUnit.types().size() > 0)
+			typeDeclaration = ((TypeDeclaration) compilationUnit.types().get(0));
+		else
+			typeDeclaration = null;
 	}
 
 	/**
@@ -53,13 +57,22 @@ public class ASTUnit {
 
 				addParamOfMethod(method, md);
 
+				System.out.println(method.getBody());
+
+
+
 				Block block = method.getBody();
-				MethodInvocationVisitor miv = new MethodInvocationVisitor();
-				block.accept(miv);
 
-				registerLocalVariables(md, miv);
+				if(block != null) {
 
-				registerCalledMethods(md, miv);
+					MethodInvocationVisitor miv = new MethodInvocationVisitor();
+					block.accept(miv);
+
+					registerLocalVariables(md, miv);
+
+					registerCalledMethods(md, miv);
+
+				}
 
 				unitClass.addMethod(md);
 			}
@@ -133,6 +146,9 @@ public class ASTUnit {
 				param = new ASTVariable(arg.toString(), new ASTClass("Number"));
 			} else if (BooleanLiteral.class.isInstance(arg)) {
 				param = new ASTVariable(arg.toString(), new ASTClass("boolean"));
+			} else if (ClassInstanceCreation.class.isInstance(arg)) {
+				ClassInstanceCreation cic = (ClassInstanceCreation) arg;
+				param = new ASTVariable(arg.toString(), new ASTClass(cic.getType().toString()));
 			} else {
 				param = new ASTVariable(arg.toString(), new ASTClass(""));
 			}
@@ -149,5 +165,9 @@ public class ASTUnit {
 
 	public ASTClass getUnitClass() {
 		return unitClass;
+	}
+
+	public boolean isValidFile() {
+		return typeDeclaration != null;
 	}
 }

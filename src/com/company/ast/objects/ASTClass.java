@@ -66,4 +66,17 @@ public class ASTClass {
 			}
 		}
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		ASTClass astClass = (ASTClass) o;
+
+		if (!name.equals(astClass.name)) return false;
+
+		return true;
+	}
+
 }

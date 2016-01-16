@@ -18,8 +18,7 @@ public class ASTMethod {
 	private List<Pair<ASTVariable, ASTMethod>> calledMethods = new ArrayList<Pair<ASTVariable, ASTMethod>>();
 
 	private ASTClass returnType;
-	
-	
+
 	public ASTMethod(String name, ASTClass c) {
 		this.name = name;
 		this.containerClass = c;
@@ -83,6 +82,22 @@ public class ASTMethod {
 			this.localVariables.remove(v);
 		}
 	}
+
+	public int getWeightOfMethod(ASTClass cls) {
+
+		int nb = 0;
+
+		for(Pair<ASTVariable, ASTMethod> called : getCalledMethods()) {
+
+			//System.out.println("called : " + called.getValue2().getName());
+			//System.out.println(cls.getName());
+			//System.out.println(called.getValue1().getType().getName());
+
+			if (cls.equals(called.getValue1().getType()))
+				nb++;
+		}
+		return nb;
+	}
 	
 	/**
 	 * Recherche la variable varName dans les variables locales, puis les paramètres,
@@ -117,7 +132,8 @@ public class ASTMethod {
 			if (arg.getType() == null || arg.getType().getName().isEmpty()) {
 				ASTVariable param = findVariable(arg.getName());
 				if (param == null) {
-					throw new Exception("Unknown variable " + arg.getName());
+//					throw new Exception("Unknown variable " + arg.getName());
+					break ;
 				}
 
 				newMethod.addParameter(param);
@@ -137,7 +153,8 @@ public class ASTMethod {
 	public void addCalledMethod(String varName, ASTMethod m) throws Exception {
 		ASTVariable v = findVariable(varName);
 		if (v == null) {
-			throw new Exception("Unknown variable " + varName);
+//			throw new Exception("Unknown variable " + varName);
+			return;
 		}
 
 		ASTMethod calledMethod = createMethodWithParameters(m);
@@ -210,5 +227,19 @@ public class ASTMethod {
 
 
 		return result;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		ASTMethod astMethod = (ASTMethod) o;
+
+        if(name != null)
+			if(!name.equals(astMethod.name) || !compareParams(astMethod))
+				return false;
+
+		return true;
 	}
 }
