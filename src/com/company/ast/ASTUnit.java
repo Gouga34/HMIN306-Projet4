@@ -125,7 +125,18 @@ public class ASTUnit {
 
 	private void addParamOfCalledMethod (List arguments, ASTMethod m) {
 		for (Object arg : arguments) {
-			ASTVariable param = new ASTVariable(arg.toString(), new ASTClass(""));
+			ASTVariable param;
+
+			if (StringLiteral.class.isInstance(arg)) {
+				param = new ASTVariable(arg.toString(), new ASTClass("String"));
+			} else if (NumberLiteral.class.isInstance(arg)) {
+				param = new ASTVariable(arg.toString(), new ASTClass("Number"));
+			} else if (BooleanLiteral.class.isInstance(arg)) {
+				param = new ASTVariable(arg.toString(), new ASTClass("boolean"));
+			} else {
+				param = new ASTVariable(arg.toString(), new ASTClass(""));
+			}
+
 			m.addParameter(param);
 		}
 	}

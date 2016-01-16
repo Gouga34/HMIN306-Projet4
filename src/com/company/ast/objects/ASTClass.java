@@ -53,8 +53,17 @@ public class ASTClass {
 	}
 	
 	public void addMethod(ASTMethod m) {
-		if (getMethod(m) == null) {
+		ASTMethod existingMethod = getMethod(m);
+
+		if (existingMethod == null) {
 			this.methods.add(m);
+		} else {
+			existingMethod.clearParameters();
+			List<ASTVariable> params = m.getParameters();
+
+			for (ASTVariable param : params) {
+				existingMethod.addParameter(param);
+			}
 		}
 	}
 
