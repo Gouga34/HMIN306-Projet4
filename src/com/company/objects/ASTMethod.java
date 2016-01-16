@@ -97,10 +97,13 @@ public class ASTMethod {
 
 	@Override
 	public String toString() {
+
 		String result = "ASTMethod{" +
 				"name='" + name + '\'' +
-				", containerClass=" + containerClass.getName() +
-				", \nRETURN : " + returnType.getName();
+				", containerClass=" + containerClass.getName();
+
+		if(returnType != null)
+			result += ", \nRETURN : " + returnType.getName();
 
 		for(ASTVariable var : parameters) {
 			result += "\nPARAM : " + var.toString();
@@ -111,6 +114,12 @@ public class ASTMethod {
 
 		for(ASTVariable local : localVariables) {
 			result += "\nLOCAL : " + local.toString();
+		}
+
+		for(Pair p : calledMethods) {
+			result += "\nCALLED METHOD" +
+					"\nvarName : " + p.getValue1()
+					+ "\nmethod : " + p.getValue2().toString();
 		}
 
 

@@ -56,8 +56,9 @@ public class ASTUnit {
 
 				registerLocalVariables(md, miv);
 
-				unitClass.addMethod(md);
+				registerCalledMethods(md, miv);
 
+				unitClass.addMethod(md);
 			}
 
 		}
@@ -79,8 +80,35 @@ public class ASTUnit {
 
 	}
 	
-	private void registerCalledMethods() {
-		
+	private void registerCalledMethods(ASTMethod md, MethodInvocationVisitor miv) {
+
+		List<MethodInvocation> listmi = miv.getMethods();
+		for (MethodInvocation methodBody : listmi) {
+
+			String varName = methodBody.getExpression().toString();
+			String methodName = methodBody.getName().toString();
+
+			ASTMethod m;
+
+			if("this".equals(varName))
+				m = new ASTMethod(varName, new ASTClass(md.getContainerClass().getName()));
+			else
+				m = new ASTMethod(varName, new ASTClass(""));
+
+			System.out.println("TMP : " + m.toString());
+
+			/*
+			List arguments = methodBody.arguments();
+			System.out.println("Arguments : ");
+			for (Object arg : arguments) {
+				System.out.println("Argument: " + arg.toString());
+				//  MethodInvocation variableDeclaration = (MethodInvocation) arg;
+				//String type = variableDeclaration.getStructuralProperty(SingleVariableDeclaration.TYPE_PROPERTY).toString();
+				//System.out.println("Argument type : " + " - type : " + type);
+			}*/
+
+			md.addCalledMethod(varName, m);
+		}
 	}
 	
 	public void initializeClass() {
