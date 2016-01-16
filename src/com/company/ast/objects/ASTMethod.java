@@ -89,7 +89,7 @@ public class ASTMethod {
 	private ASTVariable findVariable(String varName) {
 		ASTVariable v = null;
 
-		if (varName.equals("this")) {
+		if ("this".equals(varName)) {
 			v = new ASTVariable(varName, getContainerClass());
 		} else {
 			v = this.getLocalVariable(varName);
@@ -109,12 +109,17 @@ public class ASTMethod {
 
 		List<ASTVariable> args = m.getParameters();
 		for (ASTVariable arg : args) {
-			ASTVariable param = findVariable(arg.getName());
-			if (param == null) {
-				throw new Exception("Unknown variable " + arg.getName());
-			}
+			// Si le type de l'argument est vide, on cherche la variable
+			if (arg.getType() == null || arg.getType().getName().isEmpty()) {
+				ASTVariable param = findVariable(arg.getName());
+				if (param == null) {
+					throw new Exception("Unknown variable " + arg.getName());
+				}
 
-			newMethod.addParameter(param);
+				newMethod.addParameter(param);
+			} else {		// Sinon, on ajoute l'arg déjà créé
+				newMethod.addParameter(arg);
+			}
 		}
 
 		return newMethod;
