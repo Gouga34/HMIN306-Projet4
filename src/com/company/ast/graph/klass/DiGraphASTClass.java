@@ -19,8 +19,6 @@ public class DiGraphASTClass extends DiGraph<ASTClass> {
     @Override
     public void addNode(ASTClass c) {
 
-        System.out.println("I1 : " + c.getName());
-
         NodeClass node = new NodeClass(c);
 
         if(!haveThisNode(node))
@@ -32,35 +30,32 @@ public class DiGraphASTClass extends DiGraph<ASTClass> {
 
             if(!c.equals(cls)) {
 
-                System.out.println("I2 : " + cls.getName());
-
                 NodeClass nc = new NodeClass(cls);
 
                 int weight = 0;
 
-                for (ASTMethod mtd : c.getMethods()) {
+                for (ASTMethod mtd : c.getMethods()) // on calcule le poid pour chaque méthode de la classe
                     weight += mtd.getWeightOfMethod(cls);
-                }
 
-                System.out.println("WEIGHT : " + weight);
-
-                if (weight > 0) {
-
-                    if (haveThisNode(nc)) {
-                        NodeClass temp = (NodeClass) getNode(cls);
-                        temp.addEdge(node, EdgeType.IN);
-                        EdgeClass e = node.addEdge(temp, EdgeType.OUT);
-                        if (e != null)
-                            e.setWeight(weight);
-                    } else {
-                        getNodes().add(nc);
-                        nc.addEdge(node, EdgeType.IN);
-                        EdgeClass e = node.addEdge(nc, EdgeType.OUT);
-                        if (e != null)
-                            e.setWeight(weight);
-                    }
-                }
+                if (weight > 0)
+                    addEdge(weight, node, nc, cls);
             }
+        }
+    }
+
+    private void addEdge(int weight, NodeClass node, NodeClass nc, ASTClass cls) {
+        if (haveThisNode(nc)) {
+            NodeClass temp = (NodeClass) getNode(cls);
+            temp.addEdge(node, EdgeType.IN);
+            EdgeClass e = node.addEdge(temp, EdgeType.OUT);
+            if (e != null)
+                e.setWeight(weight);
+        } else {
+            getNodes().add(nc);
+            nc.addEdge(node, EdgeType.IN);
+            EdgeClass e = node.addEdge(nc, EdgeType.OUT);
+            if (e != null)
+                e.setWeight(weight);
         }
     }
 }

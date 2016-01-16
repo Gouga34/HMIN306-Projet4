@@ -38,13 +38,18 @@ public class ASTGenerator {
 		File file = new File(filePath);
 		
 		ASTUnit astUnit = new ASTUnit(cu);
-		astUnit.initializeClass();
+		if (astUnit.isValidFile()) {
+			astUnit.initializeClass();
 
-		this.units.put(file.getName(), astUnit);
+			this.units.put(file.getName(), astUnit);
+		}
 	}
 	
 	public ASTClass getClass(String filename) {
-		return units.get(filename).getUnitClass();
+		if(units.get(filename) != null)
+			return units.get(filename).getUnitClass();
+		else
+			return null;
 	}
 
 	public List<ASTClass> getAllClass() {

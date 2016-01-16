@@ -17,6 +17,7 @@ public class Main {
 	public static ASTClass parseFile(File file) {
 		ASTGenerator generator = new ASTGenerator();
         generator.initialize();
+        System.out.println(file.getName());
         generator.parseFile(file.getAbsolutePath());
 
         ASTClass root = generator.getClass(file.getName());
@@ -24,15 +25,25 @@ public class Main {
         return root;
     }
 
-	public static void main(String[] args) {
-            File directoryToScan = new File("./src/com/company/test");
-            File[] files = directoryToScan.listFiles();
-
-
-            List<ASTClass> classes = new ArrayList<ASTClass>();
+    public static void parseDir(List<ASTClass> classes, File dir) {
+        File[] files = dir.listFiles();
             for (File f : files) {
-                    classes.add(parseFile(f));
+                    if (f.isDirectory())
+                            parseDir(classes, f);
+                    else {
+                        ASTClass c = parseFile(f);
+
+                        if(c != null)
+                            classes.add(c);
+                    }
+
             }
+    }
+
+	public static void main(String[] args) {
+            File directoryToScan = new File("./src/com/company");
+            List<ASTClass> classes = new ArrayList<ASTClass>();
+            parseDir(classes, directoryToScan);
 
             CallGraph callGraph = new CallGraph();
 

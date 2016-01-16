@@ -17,6 +17,11 @@ public class CallGraph {
 
     }
 
+    /**
+     *
+     * @param clss
+     * @return
+     */
     public DiGraphASTClass getGraphClass(List<ASTClass> clss) {
         DiGraphASTClass graph = new DiGraphASTClass(clss);
 
@@ -27,6 +32,11 @@ public class CallGraph {
         return graph;
     }
 
+    /**
+     * Permet de calculer le graphe d'appel au sein d'une classe
+     * @param cls : une ASTClass
+     * @return un DiGraph contenant les méthodes de la classes
+     */
     public DiGraphASTMethod getGraphMethod(ASTClass cls) {
 
         DiGraphASTMethod graph = new DiGraphASTMethod(cls);
