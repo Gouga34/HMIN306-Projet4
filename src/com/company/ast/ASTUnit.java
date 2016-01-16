@@ -1,6 +1,5 @@
 package com.company.ast;
 
-import com.company.MethodInvocationVisitor;
 import com.company.ast.objects.ASTClass;
 import com.company.ast.objects.ASTMethod;
 import com.company.ast.objects.ASTVariable;
