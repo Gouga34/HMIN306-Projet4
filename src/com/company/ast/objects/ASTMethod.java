@@ -98,11 +98,19 @@ public class ASTMethod {
 		return v;
 	}
 
-	public void addCalledMethod(String varName, ASTMethod m) {
-		ASTVariable v = findVariable(varName);
-		if (v != null) {
-			this.calledMethods.add(new Pair<ASTVariable, ASTMethod>(v, m));
+	public void addCalledMethod(String varName, ASTMethod m) throws Exception {
+		ASTVariable v = null;
+
+		if (m.getContainerClass().getName().isEmpty()) {
+			v = findVariable(varName);
+			if (v == null) {
+				throw new Exception("Unknown variable " + varName);
+			}
+		} else {
+			v = new ASTVariable("this", m.getContainerClass());
 		}
+
+		this.calledMethods.add(new Pair<ASTVariable, ASTMethod>(v, m));
 	}
 
 	public void setReturnType(ASTClass returnType) {
