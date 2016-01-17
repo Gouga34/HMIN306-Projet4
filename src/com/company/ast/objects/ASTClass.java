@@ -57,8 +57,6 @@ public class ASTClass {
 	public void addMethod(ASTMethod m) {
 		ASTMethod existingMethod = getMethod(m);
 
-
-
 		if (existingMethod == null) {
 			this.methods.add(m);
 		} else {

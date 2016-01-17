@@ -38,7 +38,6 @@ public class Main {
                         if(c != null)
                             classes.add(c);
                     }
-
             }
     }
 
@@ -62,7 +61,6 @@ public class Main {
         DGSGenerator generator = new DGSGenerator();
         Graph2DGenerator generator2 = new Graph2DGenerator();
 
-
         File astClass = null;
 
         for(ASTClass cls : classes) {
@@ -78,7 +76,6 @@ public class Main {
         DiGraphASTClass gr = callGraph.getGraphClass(classes);
         File f = generator.generateDGS("app");
         generator.generateCallClassGraph(f, gr);
-
 
         try {
         	if(astClass != null)
