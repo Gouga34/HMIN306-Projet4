@@ -12,10 +12,10 @@ node {
 edge {
     /*size:           2px;*/
     fill-mode:      plain;
-    /*fill-color:     gray;*/
-    text-size:      14;
-    text-style:     bold-italic;
-    text-color:     #555;
+    fill-color:     gray;
+    text-size:      10;
+    text-style:     bold;
+    text-color:     #000;
     /*text-alignment: along;*/
     text-offset:    0px,-8px;
     text-padding:   0px,5px;

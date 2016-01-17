@@ -83,13 +83,7 @@ public class ASTClass {
 					e.printStackTrace();
 				}
 			}
-
-			if(existingMethod.getName().equals("m3"))
-				System.out.println("EXT1 : " + existingMethod.toString());
 		}
-
-
-
 	}
 
 	@Override

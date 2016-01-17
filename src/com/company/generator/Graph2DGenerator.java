@@ -1,6 +1,7 @@
 package com.company.generator;
 
 
+import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -22,6 +23,13 @@ public class Graph2DGenerator {
 
     }
 
+    public void pause(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+        }
+    }
+
     public void generate(File file) throws IOException, InterruptedException {
 
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
@@ -30,24 +38,22 @@ public class Graph2DGenerator {
         graph.addAttribute("ui.quality");
         graph.setAttribute("ui.stylesheet", "url(data/style.css);");
 
-        Viewer viewer = graph.display();
-        View view = viewer.getDefaultView();
-
-        //view.getCamera().setViewPercent(0.9);
-
+        graph.display();
 
         FileSource source = new FileSourceDGS();
         source.addSink( graph );
         source.begin(file.getPath());
 
-
-
-
         while(source.nextEvents()){
+            graph.getNode("ROOT").addAttribute("ui.hide");
 
+            for(Edge e :  graph.getNode("ROOT").getEachEdge())
+                e.addAttribute("ui.hide");
+
+
+         //   pause(500);
         }
+
         source.end();
-
-
     }
 }

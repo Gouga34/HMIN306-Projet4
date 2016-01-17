@@ -20,7 +20,6 @@ public class Main {
 	public static ASTClass parseFile(File file) {
 		ASTGenerator generator = new ASTGenerator();
         generator.initialize();
-        //System.out.println(file.getName());
         generator.parseFile(file.getAbsolutePath());
 
         ASTClass root = generator.getClass(file.getName());
@@ -44,34 +43,40 @@ public class Main {
     }
 
 	public static void main(String[] args) {
-        File directoryToScan = new File("./src/com/company/test");
+        File directoryToScan = new File("./src/com/company");
         List<ASTClass> classes = new ArrayList<ASTClass>();
         parseDir(classes, directoryToScan);
 
-        ASTClass a = new ASTClass("null");
-        for(ASTClass c : classes)
-            if("B".equals(c.getName()))
-                a = c;
-
         CallGraph callGraph = new CallGraph();
 
-        DiGraphASTClass gr = callGraph.getGraphClass(classes);
+        DGSGenerator generator = new DGSGenerator();
 
-        for(ASTMethod m : a.getMethods()) {
-            System.out.println(m.toString());
+        File fASTClass = null;
+
+        for(ASTClass cls : classes) {
+            DiGraphASTMethod gm = callGraph.getGraphMethod(cls);
+            File f = generator.generateDGS(cls.getName());
+            generator.generateCallMethodGraph(f, gm);
+
+            if(cls.getName().equals("ASTMethod")) {
+                fASTClass = f;
+                for(ASTMethod m : cls.getMethods()) {
+                    System.out.println(m.getName());
+                   // System.out.println(m.toString());
+                }
+            }
         }
 
-        DiGraphASTMethod gm = callGraph.getGraphMethod(a);
-        //System.out.println(gm.toString());
+        DiGraphASTClass gr = callGraph.getGraphClass(classes);
+        File f = generator.generateDGS("app");
 
-        DGSGenerator generator = new DGSGenerator();
-        File f = generator.generateDGS("test001");
-        generator.generateCallMethodGraph(f, gm);
-        //generator.generateCallClassGraph(f, gr);
+        generator.generateCallClassGraph(f, gr);
 
         Graph2DGenerator generator2 = new Graph2DGenerator();
+
         try {
             generator2.generate(f);
+            //generator2.generate(fASTClass);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

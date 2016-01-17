@@ -1,0 +1,16 @@
+DGS003
+"ASTVariable" 00
+an "ROOT"
+cn "ROOT" label="ROOT"
+an "ASTVariable.getName()"
+cn "ASTVariable.getName()" label="ASTVariable.getName()"
+ae "ROOTASTVariable.getName()" "ROOT" "ASTVariable.getName()"
+ce "ROOTASTVariable.getName()" label=""
+an "ASTVariable.getType()"
+cn "ASTVariable.getType()" label="ASTVariable.getType()"
+ae "ROOTASTVariable.getType()" "ROOT" "ASTVariable.getType()"
+ce "ROOTASTVariable.getType()" label=""
+an "ASTVariable.toString()"
+cn "ASTVariable.toString()" label="ASTVariable.toString()"
+ae "ROOTASTVariable.toString()" "ROOT" "ASTVariable.toString()"
+ce "ROOTASTVariable.toString()" label=""

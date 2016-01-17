@@ -5,6 +5,7 @@ import com.company.ast.graph.method.DiGraphASTMethod;
 import com.company.ast.graph.method.NodeMethod;
 import com.company.ast.objects.ASTClass;
 import com.company.ast.objects.ASTMethod;
+import com.company.ast.objects.ASTVariable;
 import com.company.graph.DiGraph;
 import com.company.graph.Edge;
 import com.company.graph.Node;
@@ -44,6 +45,7 @@ public class DGSGenerator {
 
         createNode(file, "ROOT");
 
+
         for(Node<ASTClass> cls : graph.getNodes()) {
             createNode(file, cls.getValue().getName());
             createEdge(file, "ROOT", cls.getValue().getName(), "");
@@ -61,20 +63,42 @@ public class DGSGenerator {
 
     public void generateCallMethodGraph(File file, DiGraphASTMethod graph) {
 
-        //createNode(file, graph.getCls().getName());
+        createNode(file, "ROOT");
 
         String className = graph.getCls().getName();
 
         for(Node<ASTMethod> method : graph.getNodes()) {
-            createNode(file, className + "." + method.getValue().getName());
-          //  createEdge(file, graph.getCls().getName(), method.getValue().getName(), "");
+            String s =  className + "." + method.getValue().getName() + "(";
+
+            for(ASTVariable var : method.getValue().getParameters()) {
+
+                s += var.getType().getName() + ", ";
+
+            }
+
+            s += ")";
+            createNode(file, s);
+            createEdge(file, "ROOT", s, "");
         }
 
         for(Node<ASTMethod> method : graph.getNodes()) {
             for(Edge<ASTMethod> child : method.getChildren()) {
 
-                String a = className + "." + method.getValue().getName();
-                String b = className + "." + child.getNode().getValue().getName();
+                String s =  className + "." + method.getValue().getName() + "(";
+
+                for(ASTVariable var : method.getValue().getParameters())
+                    s += var.getType().getName()+ ", ";
+
+                s += ")";
+
+                String a = s;
+                String b = className + "." + child.getNode().getValue().getName() + "(";
+
+                for(ASTVariable var : child.getNode().getValue().getParameters())
+                    b += var.getType().getName()+ ", ";
+
+                b+= ")";
+
 
                 createEdge(file, a, b, a + " -> " + b);
             }

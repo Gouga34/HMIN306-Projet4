@@ -1,0 +1,12 @@
+DGS003
+"Graph2DGenerator" 00
+an "ROOT"
+cn "ROOT" label="ROOT"
+an "Graph2DGenerator.pause(long, )"
+cn "Graph2DGenerator.pause(long, )" label="Graph2DGenerator.pause(long, )"
+ae "ROOTGraph2DGenerator.pause(long, )" "ROOT" "Graph2DGenerator.pause(long, )"
+ce "ROOTGraph2DGenerator.pause(long, )" label=""
+an "Graph2DGenerator.generate(File, )"
+cn "Graph2DGenerator.generate(File, )" label="Graph2DGenerator.generate(File, )"
+ae "ROOTGraph2DGenerator.generate(File, )" "ROOT" "Graph2DGenerator.generate(File, )"
+ce "ROOTGraph2DGenerator.generate(File, )" label=""

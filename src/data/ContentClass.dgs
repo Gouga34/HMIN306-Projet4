@@ -1,0 +1,12 @@
+DGS003
+"ContentClass" 00
+an "ROOT"
+cn "ROOT" label="ROOT"
+an "ContentClass.getContent(File, )"
+cn "ContentClass.getContent(File, )" label="ContentClass.getContent(File, )"
+ae "ROOTContentClass.getContent(File, )" "ROOT" "ContentClass.getContent(File, )"
+ce "ROOTContentClass.getContent(File, )" label=""
+an "ContentClass.getContent(String, Class, )"
+cn "ContentClass.getContent(String, Class, )" label="ContentClass.getContent(String, Class, )"
+ae "ROOTContentClass.getContent(String, Class, )" "ROOT" "ContentClass.getContent(String, Class, )"
+ce "ROOTContentClass.getContent(String, Class, )" label=""

@@ -24,13 +24,9 @@ public class DiGraphASTMethod extends DiGraph<ASTMethod> {
         else
             node = (NodeMethod) getNode(c); // sinon on récupère le noeud dans notre graphe
 
-        System.out.println("SIZE : " + c.getCalledMethods().size());
         for(Pair<ASTVariable, ASTMethod> pair : c.getCalledMethods()) {
 
             ASTMethod method = pair.getValue2();
-
-            System.out.println("this - " + c.getName());
-            System.out.println(pair.getValue1() + " - " + method.getName());
 
             if(cls.equals(method.getContainerClass()) || cls.equals(pair.getValue1().getType())) {
 
