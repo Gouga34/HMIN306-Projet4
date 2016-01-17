@@ -57,10 +57,6 @@ public class ASTUnit {
 
 				addParamOfMethod(method, md);
 
-				System.out.println(method.getBody());
-
-
-
 				Block block = method.getBody();
 
 				if(block != null) {
@@ -97,6 +93,22 @@ public class ASTUnit {
 		List<VariableDeclarationStatement> variableDeclarations = miv.getVariableDeclarations();
 		for (VariableDeclarationStatement var : variableDeclarations) {
 			String name = ((VariableDeclarationFragment) var.fragments().get(0)).getName().toString();
+			String type = var.getType().toString();
+			ASTVariable local = new ASTVariable(name, new ASTClass(type));
+			md.addLocalVariable(local);
+		}
+
+		List<VariableDeclarationExpression> variableDeclarationExpressions = miv.getDeclarations();
+		for(VariableDeclarationExpression var : variableDeclarationExpressions) {
+			String name = ((VariableDeclarationFragment) var.fragments().get(0)).getName().toString();
+			String type = var.getType().toString();
+			ASTVariable local = new ASTVariable(name, new ASTClass(type));
+			md.addLocalVariable(local);
+		}
+
+		List<SingleVariableDeclaration> singleVariableDeclarations = miv.getSingleDeclarations();
+		for(SingleVariableDeclaration var : singleVariableDeclarations) {
+			String name = var.getName().toString();
 			String type = var.getType().toString();
 			ASTVariable local = new ASTVariable(name, new ASTClass(type));
 			md.addLocalVariable(local);

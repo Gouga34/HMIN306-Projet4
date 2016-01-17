@@ -1,0 +1,16 @@
+DGS003
+"test001" 00
+an "B.m3"
+cn "B.m3" label="B.m3"
+an "B.m2"
+cn "B.m2" label="B.m2"
+an "B.m1"
+cn "B.m1" label="B.m1"
+ae "B.m3B.m2" "B.m3" "B.m2"
+ce "B.m3B.m2" label="B.m3 -> B.m2"
+ae "B.m2B.m3" "B.m2" "B.m3"
+ce "B.m2B.m3" label="B.m2 -> B.m3"
+ae "B.m1B.m3" "B.m1" "B.m3"
+ce "B.m1B.m3" label="B.m1 -> B.m3"
+ae "B.m1B.m2" "B.m1" "B.m2"
+ce "B.m1B.m2" label="B.m1 -> B.m2"

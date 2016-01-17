@@ -1,0 +1,22 @@
+node {
+    size:         30px;
+    shape:        circle;
+
+    fill-color:   #8facb4;
+    stroke-mode:  plain;
+    stroke-color: black;
+    text-size:    16;
+    text-style:   bold;
+    text-color:   #000;
+}
+edge {
+    /*size:           2px;*/
+    fill-mode:      plain;
+    fill-color:     gray;
+    text-size:      10;
+    text-style:     bold;
+    text-color:     #000;
+    /*text-alignment: along;*/
+    text-offset:    0px,-8px;
+    text-padding:   0px,5px;
+}

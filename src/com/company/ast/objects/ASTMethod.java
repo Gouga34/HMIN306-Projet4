@@ -88,15 +88,10 @@ public class ASTMethod {
 
 		int nb = 0;
 
-		for(Pair<ASTVariable, ASTMethod> called : getCalledMethods()) {
-
-			//System.out.println("called : " + called.getValue2().getName());
-			//System.out.println(cls.getName());
-			//System.out.println(called.getValue1().getType().getName());
-
+		for(Pair<ASTVariable, ASTMethod> called : getCalledMethods())
 			if (cls.equals(called.getValue1().getType()))
 				nb++;
-		}
+
 		return nb;
 	}
 	
@@ -134,10 +129,11 @@ public class ASTMethod {
 		for (ASTVariable arg : args) {
 			// Si le type de l'argument est vide, on cherche la variable
 			if (arg.getType() == null || arg.getType().getName().isEmpty()) {
-				ASTVariable param = findVariable(arg.getName());
+				String s = arg.getName();
+				ASTVariable param = findVariable(s);
 				if (param == null) {
-					throw new Exception("Unknown variable " + arg.getName());
-					//break ;
+					//throw new Exception("Unknown variable " + arg.getName());
+					break ;
 				}
 
 				newMethod.addParameter(param);
@@ -161,8 +157,8 @@ public class ASTMethod {
 		if (m.getContainerClass() == null || m.getContainerClass().getName().isEmpty()) {
 			v = findVariable(varName);
 			if (v == null) {
-				throw new Exception("Unknown variable " + varName);
-				//return;
+				//throw new Exception("Unknown variable " + varName);
+				return;
 			}
 		} else {
 			v = new ASTVariable("new", m.getContainerClass());
@@ -213,7 +209,7 @@ public class ASTMethod {
 	@Override
 	public String toString() {
 
-		String result = "ASTMethod{" +
+		String result = "\n\nASTMethod{" +
 				"name='" + name + '\'' +
 				", containerClass=" + containerClass.getName();
 
@@ -238,7 +234,7 @@ public class ASTMethod {
 		}
 
 
-		return result;
+		return result + "\n\n";
 	}
 
 	@Override

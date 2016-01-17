@@ -41,7 +41,10 @@ public class CallGraph {
 
         DiGraphASTMethod graph = new DiGraphASTMethod(cls);
 
+        //System.out.println(cls.getMethods().size());
+
         for(ASTMethod method : cls.getMethods()) {
+            //System.out.println(method.getName());
             graph.addNode(method);
         }
 

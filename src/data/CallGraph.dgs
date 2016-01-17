@@ -1,0 +1,12 @@
+DGS003
+"CallGraph" 00
+an "ROOT"
+cn "ROOT" label="ROOT"
+an "CallGraph.getGraphClass(List<ASTClass>, )"
+cn "CallGraph.getGraphClass(List<ASTClass>, )" label="CallGraph.getGraphClass(List<ASTClass>, )"
+ae "ROOTCallGraph.getGraphClass(List<ASTClass>, )" "ROOT" "CallGraph.getGraphClass(List<ASTClass>, )"
+ce "ROOTCallGraph.getGraphClass(List<ASTClass>, )" label=""
+an "CallGraph.getGraphMethod(ASTClass, )"
+cn "CallGraph.getGraphMethod(ASTClass, )" label="CallGraph.getGraphMethod(ASTClass, )"
+ae "ROOTCallGraph.getGraphMethod(ASTClass, )" "ROOT" "CallGraph.getGraphMethod(ASTClass, )"
+ce "ROOTCallGraph.getGraphMethod(ASTClass, )" label=""
