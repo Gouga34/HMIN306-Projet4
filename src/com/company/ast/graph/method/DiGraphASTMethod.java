@@ -45,4 +45,8 @@ public class DiGraphASTMethod extends DiGraph<ASTMethod> {
             }
         }
     }
+
+    public ASTClass getCls() {
+        return cls;
+    }
 }

@@ -4,6 +4,7 @@ import com.company.ast.graph.CallGraph;
 import com.company.ast.graph.klass.DiGraphASTClass;
 import com.company.ast.graph.method.DiGraphASTMethod;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import com.company.ast.objects.ASTClass;
 import com.company.ast.objects.ASTMethod;
 import com.company.ast.objects.ASTVariable;
 import com.company.ast.ASTGenerator;
+import com.company.generator.DGSGenerator;
+import com.company.generator.Graph2DGenerator;
 
 public class Main {
 
@@ -41,14 +44,33 @@ public class Main {
     }
 
 	public static void main(String[] args) {
-            File directoryToScan = new File("./src/com/company");
-            List<ASTClass> classes = new ArrayList<ASTClass>();
-            parseDir(classes, directoryToScan);
+        File directoryToScan = new File("./src/com/company");
+        List<ASTClass> classes = new ArrayList<ASTClass>();
+        parseDir(classes, directoryToScan);
 
-            CallGraph callGraph = new CallGraph();
+        ASTClass a = new ASTClass("null");
+        for(ASTClass c : classes)
+            if("A".equals(c.getName()))
+                a = c;
 
-            DiGraphASTClass gr = callGraph.getGraphClass(classes);
+        CallGraph callGraph = new CallGraph();
 
-            System.out.println(gr.toString());
-	}
+        DiGraphASTClass gr = callGraph.getGraphClass(classes);
+
+        DiGraphASTMethod gm = callGraph.getGraphMethod(a);
+
+        DGSGenerator generator = new DGSGenerator();
+        File f = generator.generateDGS("test001");
+        //generator.generateCallMethodGraph(f, gm);
+        generator.generateCallClassGraph(f, gr);
+
+        Graph2DGenerator generator2 = new Graph2DGenerator();
+        try {
+            generator2.generate(f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
