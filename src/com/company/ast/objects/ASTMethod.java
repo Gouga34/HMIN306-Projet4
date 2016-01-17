@@ -127,8 +127,8 @@ public class ASTMethod {
 		return v;
 	}
 
-	private ASTMethod createMethodWithParameters(ASTMethod m) throws Exception {
-		ASTMethod newMethod = new ASTMethod(m.getName(), m.getContainerClass());
+	private ASTMethod createMethodWithParameters(ASTMethod m, ASTClass cl) throws Exception {
+		ASTMethod newMethod = new ASTMethod(m.getName(), cl);
 
 		List<ASTVariable> args = m.getParameters();
 		for (ASTVariable arg : args) {
@@ -155,14 +155,22 @@ public class ASTMethod {
 	}
 
 	public void addCalledMethod(String varName, ASTMethod m) throws Exception {
-		ASTVariable v = findVariable(varName);
-		if (v == null) {
-			throw new Exception("Unknown variable " + varName);
-			//return;
+		ASTVariable v = null;
+
+		// Si on a pas le type du receveur, on le cherche
+		if (m.getContainerClass() == null || m.getContainerClass().getName().isEmpty()) {
+			v = findVariable(varName);
+			if (v == null) {
+				throw new Exception("Unknown variable " + varName);
+				//return;
+			}
+		} else {
+			v = new ASTVariable("new", m.getContainerClass());
 		}
 
-		ASTMethod calledMethod = createMethodWithParameters(m);
+		ASTMethod calledMethod = createMethodWithParameters(m, v.getType());
 		ASTMethod existingMethod = v.getType().getMethod(calledMethod);
+
 		if (existingMethod != null) {
 			calledMethod = existingMethod;
 		} else {
