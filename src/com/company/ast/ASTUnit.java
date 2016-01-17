@@ -71,7 +71,6 @@ public class ASTUnit {
 					registerLocalVariables(md, miv);
 
 					registerCalledMethods(md, miv);
-
 				}
 
 				unitClass.addMethod(md);
@@ -104,31 +103,31 @@ public class ASTUnit {
 		}
 	}
 	
-	private void registerCalledMethods(ASTMethod md, MethodInvocationVisitor miv) {
+	private void registerCalledMethods(ASTMethod parentMethod, MethodInvocationVisitor miv) {
 
 		List<MethodInvocation> listmi = miv.getMethods();
 		for (MethodInvocation methodBody : listmi) {
 
 			Expression exp = methodBody.getExpression();
-
-			String varName = "this";
-
-			if(exp != null)
-				varName = exp.toString();
-
 			String methodName = methodBody.getName().toString();
 
-			ASTMethod m;
+			String varName = null;
+			ASTMethod m = new ASTMethod(methodName, new ASTClass(""));
 
-			if("this".equals(varName)) // s'il c'est un appelle de méthode de la classe on peut alors identifier leur ASTClass
-				m = new ASTMethod(methodName, new ASTClass(md.getContainerClass().getName()));
-			else
-				m = new ASTMethod(methodName, new ASTClass(""));
+			// Si c'est une instanciation, on créé la méthode avec le bon type pour le receveur
+			if (exp instanceof ClassInstanceCreation) {
+				ClassInstanceCreation cic = (ClassInstanceCreation) exp;
+				m = new ASTMethod(methodName, new ASTClass(cic.getType().toString()));
+			} else if (exp == null) {
+				varName = "this";
+			} else {
+				varName = exp.toString();
+			}
 
 			addParamOfCalledMethod(methodBody.arguments(), m);
 
 			try {
-				md.addCalledMethod(varName, m);
+				parentMethod.addCalledMethod(varName, m);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
