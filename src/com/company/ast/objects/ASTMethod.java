@@ -2,6 +2,7 @@ package com.company.ast.objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.company.utils.Pair;
 
@@ -107,9 +108,12 @@ public class ASTMethod {
 	 */
 	private ASTVariable findVariable(String varName) {
 		ASTVariable v = null;
+		String[] vars = varName.split(Pattern.quote("."));
 
-		if ("this".equals(varName)) {
+		if (vars.length == 1 && vars[0].equals("this")) {
 			v = new ASTVariable(varName, getContainerClass());
+		} else if (vars.length == 2 && vars[0].equals("this")) {
+			v = this.getContainerClass().getAttribute(vars[1]);
 		} else {
 			v = this.getLocalVariable(varName);
 			if (v == null) {
@@ -123,8 +127,8 @@ public class ASTMethod {
 		return v;
 	}
 
-	private ASTMethod createMethodWithParameters(ASTMethod m) throws Exception {
-		ASTMethod newMethod = new ASTMethod(m.getName(), m.getContainerClass());
+	private ASTMethod createMethodWithParameters(ASTMethod m, ASTClass cl) throws Exception {
+		ASTMethod newMethod = new ASTMethod(m.getName(), cl);
 
 		List<ASTVariable> args = m.getParameters();
 		for (ASTVariable arg : args) {
@@ -132,8 +136,8 @@ public class ASTMethod {
 			if (arg.getType() == null || arg.getType().getName().isEmpty()) {
 				ASTVariable param = findVariable(arg.getName());
 				if (param == null) {
-//					throw new Exception("Unknown variable " + arg.getName());
-					break ;
+					throw new Exception("Unknown variable " + arg.getName());
+					//break ;
 				}
 
 				newMethod.addParameter(param);
@@ -151,14 +155,22 @@ public class ASTMethod {
 	}
 
 	public void addCalledMethod(String varName, ASTMethod m) throws Exception {
-		ASTVariable v = findVariable(varName);
-		if (v == null) {
-//			throw new Exception("Unknown variable " + varName);
-			return;
+		ASTVariable v = null;
+
+		// Si on a pas le type du receveur, on le cherche
+		if (m.getContainerClass() == null || m.getContainerClass().getName().isEmpty()) {
+			v = findVariable(varName);
+			if (v == null) {
+				throw new Exception("Unknown variable " + varName);
+				//return;
+			}
+		} else {
+			v = new ASTVariable("new", m.getContainerClass());
 		}
 
-		ASTMethod calledMethod = createMethodWithParameters(m);
+		ASTMethod calledMethod = createMethodWithParameters(m, v.getType());
 		ASTMethod existingMethod = v.getType().getMethod(calledMethod);
+
 		if (existingMethod != null) {
 			calledMethod = existingMethod;
 		} else {
