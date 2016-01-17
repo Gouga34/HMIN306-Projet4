@@ -20,7 +20,7 @@ public class MethodInvocationVisitor extends ASTVisitor {
     private List<VariableDeclarationStatement> variableDeclarations = new ArrayList<VariableDeclarationStatement>();
     private List<Assignment> assignments = new ArrayList<Assignment>();
     private List<ReturnStatement> returnStatements = new ArrayList<ReturnStatement>();
-    private List<SimpleName> simpleNames = new ArrayList();
+    private List<SimpleName> simpleNames = new ArrayList<SimpleName>();
 
     @Override
     public boolean visit(MethodInvocation node) {

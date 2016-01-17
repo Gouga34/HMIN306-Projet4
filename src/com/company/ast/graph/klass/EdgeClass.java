@@ -8,5 +8,4 @@ public class EdgeClass extends Edge<ASTClass> {
     public EdgeClass(NodeClass node) {
         super(node);
     }
-
 }

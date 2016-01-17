@@ -38,7 +38,6 @@ public class NodeClass extends Node<ASTClass> {
         String result =  "Node{" +
                 "value = " + getValue().getName();
 
-
         result += "\nparents : " + (getParents().size()) + " \n\t";
 
         for (Edge parent : getParents()) {

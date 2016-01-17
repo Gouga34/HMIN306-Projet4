@@ -106,7 +106,6 @@ public class Node<T> {
         String result =  "Node{" +
                 "value = " + value.toString();
 
-
         result += "\nparents : " + " \n\t";
 
         for (Edge parent : parents) {
