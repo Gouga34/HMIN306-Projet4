@@ -20,7 +20,7 @@ public class Main {
 	public static ASTClass parseFile(File file) {
 		ASTGenerator generator = new ASTGenerator();
         generator.initialize();
-        System.out.println(file.getName());
+        //System.out.println(file.getName());
         generator.parseFile(file.getAbsolutePath());
 
         ASTClass root = generator.getClass(file.getName());
@@ -44,25 +44,30 @@ public class Main {
     }
 
 	public static void main(String[] args) {
-        File directoryToScan = new File("./src/com/company");
+        File directoryToScan = new File("./src/com/company/test");
         List<ASTClass> classes = new ArrayList<ASTClass>();
         parseDir(classes, directoryToScan);
 
         ASTClass a = new ASTClass("null");
         for(ASTClass c : classes)
-            if("A".equals(c.getName()))
+            if("B".equals(c.getName()))
                 a = c;
 
         CallGraph callGraph = new CallGraph();
 
         DiGraphASTClass gr = callGraph.getGraphClass(classes);
 
+        for(ASTMethod m : a.getMethods()) {
+            System.out.println(m.toString());
+        }
+
         DiGraphASTMethod gm = callGraph.getGraphMethod(a);
+        //System.out.println(gm.toString());
 
         DGSGenerator generator = new DGSGenerator();
         File f = generator.generateDGS("test001");
-        //generator.generateCallMethodGraph(f, gm);
-        generator.generateCallClassGraph(f, gr);
+        generator.generateCallMethodGraph(f, gm);
+        //generator.generateCallClassGraph(f, gr);
 
         Graph2DGenerator generator2 = new Graph2DGenerator();
         try {

@@ -1,5 +1,7 @@
 package com.company.ast.objects;
 
+import com.company.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +57,8 @@ public class ASTClass {
 	public void addMethod(ASTMethod m) {
 		ASTMethod existingMethod = getMethod(m);
 
+
+
 		if (existingMethod == null) {
 			this.methods.add(m);
 		} else {
@@ -64,7 +68,28 @@ public class ASTClass {
 			for (ASTVariable param : params) {
 				existingMethod.addParameter(param);
 			}
+
+			existingMethod.setReturnType(m.getReturnType());
+			existingMethod.getLocalVariables().clear();
+			for(ASTVariable var : m.getLocalVariables()) {
+				existingMethod.addLocalVariable(var);
+			}
+
+			existingMethod.getCalledMethods().clear();
+			for(Pair<ASTVariable, ASTMethod> pair : m.getCalledMethods()) {
+				try {
+					existingMethod.addCalledMethod(pair.getValue1().getName(), pair.getValue2());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			if(existingMethod.getName().equals("m3"))
+				System.out.println("EXT1 : " + existingMethod.toString());
 		}
+
+
+
 	}
 
 	@Override

@@ -10,24 +10,20 @@ public class B {
     }
 
     public void m1 (A a) {
-        //this.a = a;
-
-        //Object local = new Object();
+        m3(a, b);
+        m2();
     }
 
     public A m2 () {
-        b.m1(a);
-        //a.m2();
         A ab = new A(new B());
         this.m3(ab, new B());
-       // m3(ab, ab);
-        ab.m2();
         return null;
     }
 
     public void m3(A a, B a2) {
-        a.m3();
         a.m1();
+        b.m2();
+
     }
 
 }

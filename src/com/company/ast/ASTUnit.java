@@ -51,15 +51,13 @@ public class ASTUnit {
 
 			Type typeReturn = method.getReturnType2();
 
+			System.out.println("Name : " + md.getName() + " - " + "Type : " + typeReturn);
+
 			if(typeReturn != null) {
 
 				md.setReturnType(new ASTClass(typeReturn.toString()));
 
 				addParamOfMethod(method, md);
-
-				System.out.println(method.getBody());
-
-
 
 				Block block = method.getBody();
 

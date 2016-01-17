@@ -26,8 +26,8 @@ public class Graph2DGenerator {
 
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         Graph graph = new MultiGraph(file.getName());
-        //graph.addAttribute("ui.antialias");
-        //graph.addAttribute("ui.quality");
+        graph.addAttribute("ui.antialias");
+        graph.addAttribute("ui.quality");
         graph.setAttribute("ui.stylesheet", "url(data/style.css);");
 
         Viewer viewer = graph.display();

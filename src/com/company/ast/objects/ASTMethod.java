@@ -136,8 +136,8 @@ public class ASTMethod {
 			if (arg.getType() == null || arg.getType().getName().isEmpty()) {
 				ASTVariable param = findVariable(arg.getName());
 				if (param == null) {
-					throw new Exception("Unknown variable " + arg.getName());
-					//break ;
+					//throw new Exception("Unknown variable " + arg.getName());
+					break ;
 				}
 
 				newMethod.addParameter(param);
@@ -161,8 +161,8 @@ public class ASTMethod {
 		if (m.getContainerClass() == null || m.getContainerClass().getName().isEmpty()) {
 			v = findVariable(varName);
 			if (v == null) {
-				throw new Exception("Unknown variable " + varName);
-				//return;
+				//throw new Exception("Unknown variable " + varName);
+				return;
 			}
 		} else {
 			v = new ASTVariable("new", m.getContainerClass());
@@ -213,7 +213,7 @@ public class ASTMethod {
 	@Override
 	public String toString() {
 
-		String result = "ASTMethod{" +
+		String result = "\n\nASTMethod{" +
 				"name='" + name + '\'' +
 				", containerClass=" + containerClass.getName();
 
@@ -238,7 +238,7 @@ public class ASTMethod {
 		}
 
 
-		return result;
+		return result + "\n\n";
 	}
 
 	@Override
