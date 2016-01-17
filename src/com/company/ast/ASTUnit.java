@@ -18,7 +18,7 @@ public class ASTUnit {
 	
 	public ASTUnit(CompilationUnit cu) {
 		compilationUnit = cu;
-		System.out.println(compilationUnit.types().size());
+
 		if(compilationUnit.types().size() > 0)
 			typeDeclaration = ((TypeDeclaration) compilationUnit.types().get(0));
 		else
@@ -102,7 +102,6 @@ public class ASTUnit {
 			ASTVariable local = new ASTVariable(name, new ASTClass(type));
 			md.addLocalVariable(local);
 		}
-
 	}
 	
 	private void registerCalledMethods(ASTMethod md, MethodInvocationVisitor miv) {
