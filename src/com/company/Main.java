@@ -51,12 +51,17 @@ public class Main {
         if (args.length == 2) {
         	nameClass = args[1];
         }
-		
+
 		File directoryToScan = new File(args[0]);
         List<ASTClass> classes = new ArrayList<ASTClass>();
         parseDir(classes, directoryToScan);
 
         CallGraph callGraph = new CallGraph();
+
+        File dataDir = new File("./visualizationData");
+        if (!dataDir.exists()) {
+        	dataDir.mkdir();
+        }
 
         DGSGenerator generator = new DGSGenerator();
         Graph2DGenerator generator2 = new Graph2DGenerator();
