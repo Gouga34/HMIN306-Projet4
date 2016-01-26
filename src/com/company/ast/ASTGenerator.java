@@ -33,7 +33,6 @@ public class ASTGenerator {
 		String content = cc.getContent(filePath);
 		parser.setSource(content.toCharArray());
 		
-		
 		CompilationUnit cu = (CompilationUnit) parser.createAST(null);
 		File file = new File(filePath);
 		
@@ -53,11 +52,9 @@ public class ASTGenerator {
 	}
 
 	public List<ASTClass> getAllClass() {
-
 		List<ASTClass> classes = new ArrayList<ASTClass>();
 
 		for(Map.Entry<String, ASTUnit> entry : units.entrySet()) {
-			String key = entry.getKey();
 			ASTClass cls = entry.getValue().getUnitClass();
 			classes.add(cls);
 		}

@@ -13,7 +13,6 @@ public class ASTUnit {
 	private CompilationUnit compilationUnit;
 	private TypeDeclaration typeDeclaration;
 
-
 	private ASTClass unitClass;
 	
 	public ASTUnit(CompilationUnit cu) {
@@ -126,7 +125,7 @@ public class ASTUnit {
 			String varName = null;
 			ASTMethod m = new ASTMethod(methodName, new ASTClass(""));
 
-			// Si c'est une instanciation, on créé la méthode avec le bon type pour le receveur
+			// Si c'est une instanciation, on crée la méthode avec le bon type pour le receveur
 			if (exp instanceof ClassInstanceCreation) {
 				ClassInstanceCreation cic = (ClassInstanceCreation) exp;
 				m = new ASTMethod(methodName, new ASTClass(cic.getType().toString()));
