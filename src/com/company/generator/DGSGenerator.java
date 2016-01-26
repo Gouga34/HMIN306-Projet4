@@ -24,7 +24,7 @@ public class DGSGenerator {
 
     public File generateDGS(String name) {
 
-        File file = new File("./src/data/" + name + ".dgs");
+        File file = new File("./visualizationData/" + name + ".dgs");
         try {
             file.createNewFile();
             BufferedWriter output = new BufferedWriter(new FileWriter(file));
