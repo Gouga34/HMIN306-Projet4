@@ -55,7 +55,6 @@ public class DGSGenerator {
                 String a = cls.getValue().getName();
                 String b = child.getNode().getValue().getName();
                 createEdge(file, a, b, a + " -- " + child.getWeight() + " --> " + b);
-                //createEdge(file, a, b, " -- " + child.getWeight() + " --> ");
             }
         }
     }
@@ -99,14 +98,12 @@ public class DGSGenerator {
                 createEdge(file, a, b, a + " -> " + b);
             }
         }
-
     }
 
     private void createNode(File file, String name) {
 
         try {
             BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
-
 
             output.write("an \"" + name + "\"\n");
             output.write("cn \"" + name + "\" label=\"" + name + "\"\n");
@@ -116,7 +113,6 @@ public class DGSGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void createEdge(File file, String node1, String node2, String label) {
@@ -133,5 +129,4 @@ public class DGSGenerator {
             e.printStackTrace();
         }
     }
-
 }

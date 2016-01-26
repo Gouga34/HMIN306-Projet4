@@ -38,45 +38,51 @@ public class Main {
                         if(c != null)
                             classes.add(c);
                     }
-
             }
     }
 
 	public static void main(String[] args) {
-        File directoryToScan = new File("./src/com/company");
+        if (args.length < 1) {
+        	System.out.println("La ligne de commande doit être de la forme <dirpath> [classname]");
+        	return;
+        }
+        
+        String nameClass = "";
+        if (args.length == 2) {
+        	nameClass = args[1];
+        }
+		
+		File directoryToScan = new File(args[0]);
         List<ASTClass> classes = new ArrayList<ASTClass>();
         parseDir(classes, directoryToScan);
 
         CallGraph callGraph = new CallGraph();
 
         DGSGenerator generator = new DGSGenerator();
+        Graph2DGenerator generator2 = new Graph2DGenerator();
 
-        File fASTClass = null;
+        File astClass = null;
 
         for(ASTClass cls : classes) {
             DiGraphASTMethod gm = callGraph.getGraphMethod(cls);
             File f = generator.generateDGS(cls.getName());
             generator.generateCallMethodGraph(f, gm);
 
-            if(cls.getName().equals("ASTMethod")) {
-                fASTClass = f;
-                for(ASTMethod m : cls.getMethods()) {
-                    System.out.println(m.getName());
-                   // System.out.println(m.toString());
-                }
+            if(cls.getName().equals(nameClass)) {
+            	astClass = f;
             }
         }
 
         DiGraphASTClass gr = callGraph.getGraphClass(classes);
         File f = generator.generateDGS("app");
-
         generator.generateCallClassGraph(f, gr);
 
-        Graph2DGenerator generator2 = new Graph2DGenerator();
-
         try {
-            generator2.generate(f);
-            //generator2.generate(fASTClass);
+        	if(astClass != null)
+        		generator2.generate(astClass);
+        	else
+        		generator2.generate(f);
+            
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

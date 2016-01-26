@@ -49,9 +49,9 @@ public class Graph2DGenerator {
 
             for(Edge e :  graph.getNode("ROOT").getEachEdge())
                 e.addAttribute("ui.hide");
-
-
+            
             pause(300);
+
         }
 
         source.end();

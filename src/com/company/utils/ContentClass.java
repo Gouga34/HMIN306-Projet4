@@ -28,5 +28,4 @@ public class ContentClass {
         String path = src + c.getPackage().getName().replaceAll("\\.", "\\/") + "/" + c.getSimpleName() + ".java";
         return getContent(path);
     }
-
 }

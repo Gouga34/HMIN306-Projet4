@@ -233,7 +233,6 @@ public class ASTMethod {
 					+ "\nmethod : " + p.getValue2().toString();
 		}
 
-
 		return result + "\n\n";
 	}
 
