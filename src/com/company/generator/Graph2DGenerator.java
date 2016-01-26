@@ -51,7 +51,7 @@ public class Graph2DGenerator {
                 e.addAttribute("ui.hide");
 
 
-         //   pause(500);
+            pause(300);
         }
 
         source.end();

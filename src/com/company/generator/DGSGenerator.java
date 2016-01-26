@@ -45,7 +45,6 @@ public class DGSGenerator {
 
         createNode(file, "ROOT");
 
-
         for(Node<ASTClass> cls : graph.getNodes()) {
             createNode(file, cls.getValue().getName());
             createEdge(file, "ROOT", cls.getValue().getName(), "");
@@ -71,9 +70,7 @@ public class DGSGenerator {
             String s =  className + "." + method.getValue().getName() + "(";
 
             for(ASTVariable var : method.getValue().getParameters()) {
-
                 s += var.getType().getName() + ", ";
-
             }
 
             s += ")";
@@ -98,7 +95,6 @@ public class DGSGenerator {
                     b += var.getType().getName()+ ", ";
 
                 b+= ")";
-
 
                 createEdge(file, a, b, a + " -> " + b);
             }
